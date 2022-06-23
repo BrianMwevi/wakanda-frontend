@@ -42,6 +42,9 @@ THE SOFTWARE.
 font-awesome
 (OFL-1.1 AND MIT)
 
+ngx-ui-loader
+MIT
+
 rxjs
 Apache-2.0
                                Apache License
