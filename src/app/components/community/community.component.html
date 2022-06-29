@@ -1,0 +1,63 @@
+<section class="community">
+  <div class="text-white sticky-top">
+    <div class="container community-nav">
+      <app-navbar (searchResults$)="newSearch($event)"></app-navbar>
+    </div>
+  </div>
+  <div class="container pt-4">
+    <div class="container pt-3" *ngIf="posts">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="sticky-top">
+            <div class="card p-0 m-0 custom-card">
+              <div class="card-header d-flex">
+                <h5 class="custom-color">Activities</h5>
+                <p class="ml-auto custom-color">See all</p>
+              </div>
+              <div class="card-body p-0">
+                <div class="list-group p-0">
+                  <li class="list-group-item activity-list">Create Business</li>
+                  <li class="list-group-item activity-list">View Members</li>
+                  <li class="list-group-item activity-list">View Mentions</li>
+                  <li class="list-group-item activity-list">Go to Settings</li>
+                  <li
+                    class="list-group-item activity-list"
+                    (click)="onLogout()"
+                  >
+                    Logout
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="row" *ngIf="!searchResults">
+            <div class="col-lg-3">
+              <app-profile-card [user]="user"></app-profile-card>
+            </div>
+            <div class="col-lg-9 ml-auto">
+              <app-post-form (newPost)="addPost($event)"></app-post-form>
+            </div>
+          </div>
+          <div class="row" *ngIf="!searchResults">
+            <div class="col-12" *ngFor="let post of posts">
+              <app-post [post]="post" [user]="user"></app-post>
+            </div>
+          </div>
+          <div class="row" *ngIf="searchResults">
+            <h2
+              *ngIf="searchResults.length < 1"
+              class="pt-5 custom-color text-center mx-auto"
+            >
+              No Results
+            </h2>
+            <div class="col-12" *ngFor="let post of searchResults">
+              <app-post [post]="post" [user]="user"></app-post>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

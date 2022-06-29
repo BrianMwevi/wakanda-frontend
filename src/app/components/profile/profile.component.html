@@ -1,0 +1,145 @@
+<section class="community text-white">
+  <div class="container">
+    <app-navbar></app-navbar>
+    <div class="row py-5">
+      <div class="col-lg-4">
+        <div class="card custom-card sticky-top">
+          <div class="card-header d-flex">
+            <h5 class="custom-color">Activities</h5>
+            <p class="ml-auto custom-color">See all</p>
+          </div>
+          <div class="card-body">
+            <div class="list-group">
+              <li
+                class="list-group-item activity-list"
+                [class.selected]="selected == 'Neighborhoods'"
+                (click)="selectedList($event)"
+              >
+                Neighborhoods
+              </li>
+              <li
+                class="list-group-item activity-list"
+                [class.selected]="selected == 'Update Profile'"
+                (click)="selectedList($event)"
+              >
+                Update Profile
+              </li>
+              <li
+                class="list-group-item activity-list"
+                [class.selected]="selected == 'My Posts'"
+                (click)="selectedList($event)"
+              >
+                My Posts
+              </li>
+              <li
+                class="list-group-item activity-list"
+                [class.selected]="selected == 'Businesses'"
+                (click)="selectedList($event)"
+              >
+                Businesses
+              </li>
+
+              <li
+                class="list-group-item activity-list"
+                [class.selected]="selected == 'Followers'"
+                (click)="selectedList($event)"
+              >
+                Followers
+              </li>
+              <li
+                class="list-group-item activity-list"
+                [class.selected]="selected == 'Following'"
+                (click)="selectedList($event)"
+              >
+                Following
+              </li>
+              <li class="list-group-item activity-list" (click)="onLogout()">
+                Logout
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <h2
+          class="text-warning pb-3 text-center"
+          *ngIf="!profile?.neighborhood"
+        >
+          <strong>Join a neighborhood to continue</strong>
+        </h2>
+        <div class="p-2" *ngIf="selected == 'Update Profile'">
+          <div class="pb-3">
+            <h3 class="custom-color"><strong> Profile Details </strong></h3>
+          </div>
+          <div class="py-2">
+            <app-profile-form [profile]="profile"></app-profile-form>
+          </div>
+        </div>
+        <div class="m-0 p-0" *ngIf="selected == 'My Posts'">
+          <h2
+            class="mx-auto custom-color text-center"
+            *ngIf="profile.posts.length < 1"
+          >
+            You've no posts
+          </h2>
+          <div class="m-0 p-0" *ngFor="let post of profile.posts">
+            <app-post [post]="post" [user]="profile.user"></app-post>
+          </div>
+        </div>
+        <div class="" *ngIf="selected == 'Businesses'">
+          <div *ngIf="profile.neighborhood">
+            <h3 class="custom-color mb-4">Create A Business</h3>
+            <!-- Passing to parent i.e app-profile -->
+            <app-business-form
+              (newBusiness)="newBusiness($event)"
+              [profile]="profile"
+            ></app-business-form>
+          </div>
+          <!-- Receiving From Parent i.e app-profile -->
+          <h2 class="text-center mt-5 mb-4">Businesses</h2>
+          <div *ngFor="let business of businesses">
+            <app-business-card [business]="business"></app-business-card>
+          </div>
+        </div>
+        <div
+          class="m-0 p-0"
+          *ngIf="neighborhoods && selected == 'Neighborhoods'"
+        >
+          <h2 class="mx-auto custom-color" *ngIf="neighborhoods.length < 1">
+            No Neighborhoods
+          </h2>
+          <div class="m-0 p-0" *ngFor="let neighborhood of neighborhoods">
+            <div class="card card-body custom-card my-2">
+              <div class="card-title">
+                <h5>
+                  <strong>{{ neighborhood.name }}</strong>
+                </h5>
+                <p>
+                  Admin:
+                  <strong>{{
+                    neighborhood.admin | titlecase | titlecase
+                  }}</strong>
+                </p>
+                <button
+                  *ngIf="neighborhood?.id != profile.neighborhood"
+                  (click)="onJoin(neighborhood.id)"
+                  class="home-btn post-btn"
+                >
+                  Join
+                </button>
+                <button
+                  *ngIf="neighborhood.id == profile.neighborhood"
+                  class="post-btn"
+                  disabled
+                >
+                  <strong>Joined</strong>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3"></div>
+    </div>
+  </div>
+</section>

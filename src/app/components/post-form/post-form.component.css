@@ -1,0 +1,35 @@
+.post-form {
+  background-color: #1a2036;
+  min-height: 6rem;
+  color: #00ffcc;
+  margin-bottom: 0;
+  transition: all 0.3s ease-in-out;
+  padding: 0;
+  resize: none;
+  border-bottom: 1px solid #00ffcc91;
+}
+
+.post-form::placeholder {
+  color: #00ffcc70;
+}
+
+.post-form:focus::placeholder {
+  color: #00ffcc;
+}
+.post-form:focus {
+  border-bottom: 2px solid #00ffcc;
+  width: 100%;
+}
+.post-form-icons {
+  font-size: 1.8rem;
+  cursor: pointer;
+
+  color: #00ffcc;
+  transition: all 0.2s ease-in-out;
+}
+
+.post-form-icons:hover {
+  box-shadow: 0 0 10px #0b997d;
+  transform: translateY(-10%);
+}
+

@@ -1,0 +1,10 @@
+<div class="d-flex p-0 m-0" *ngIf="user">
+  <img
+    src="{{ user.image }}"
+    alt="{{ user.username }}"
+    [ngClass]="small ? 'small-profile-img' : 'profile-img'"
+  />
+  <p class="my-auto ml-2 username">
+    <strong class="badge custom-bg">@{{ user.username }}</strong>
+  </p>
+</div>

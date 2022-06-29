@@ -1,0 +1,12 @@
+<div class="card card-body">
+  <div class="d-flex">
+    <app-profile-card [user]="comment.user"></app-profile-card>
+    <div class="ml-auto">
+      <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+      <p>
+        <small>{{ comment.posted_at }}</small>
+      </p>
+    </div>
+  </div>
+  <p>{{ comment.comment }}</p>
+</div>

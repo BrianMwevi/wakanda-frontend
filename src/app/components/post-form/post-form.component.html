@@ -1,0 +1,27 @@
+<form (ngSubmit)="addPost()">
+  <div class="form-group pb-0 mb-0">
+    <textarea
+      name="post"
+      class="form-input post-form"
+      placeholder="What's going on?"
+      [(ngModel)]="post"
+    >
+    </textarea>
+  </div>
+  <div class="card-footer p-0 m-0">
+    <button class="home-btn post-btn custom-bg float-right ml-4">Post</button>
+    <label for="postFile">
+      <input
+        type="file"
+        name="postFile"
+        id="postFile"
+        class="img-input"
+        (change)="uploadFile($event)"
+      />
+      <i
+        class="fa fa-file-image-o post-form-icons mt-2 float-left m-0 p-0"
+        aria-hidden="true"
+      ></i>
+    </label>
+  </div>
+</form>

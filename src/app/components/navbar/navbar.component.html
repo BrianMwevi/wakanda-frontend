@@ -1,18 +1,58 @@
-<nav class="navbar navbar-expand-sm navbar-light">
+<nav class="navbar navbar-expand-sm sticky-top">
   <div class="navbar-brand">
-    <a href="#" class="logo"><i class="fa fa-users fa-2x color-primary" aria-hidden="true"></i> </a>
+    <a href="" class="logo"
+      ><i class="fa fa-users fa-2x color-primary" aria-hidden="true"></i>
+    </a>
   </div>
   <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="navbar-collapse collapse" id="mainNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
-    </ul>
-    <ul class="nav">
+    <ul class="navbar-nav ml-auto" *ngIf="!profile">
       <li class="nav-item">
-        <a href="#" class="nav-link btn btn-light">Get Started</a>
+        <a href="auth/" class="nav-link btn btn-light px-3 mx-3">Login</a>
       </li>
+      <li class="nav-item">
+        <a href="auth/" class="nav-link btn btn-light">Get Started</a>
+      </li>
+    </ul>
+    <ul class="nav nav ml-auto" *ngIf="profile">
+      <input
+        #q
+        type="text"
+        name="q"
+        class="form-input comment-input w-100"
+        placeholder="Search posts..."
+        (input)="search(q.value)"
+      />
+    </ul>
+
+    <ul class="nav ml-auto mr-5" *ngIf="profile">
+      <li class="nav-item my-auto mr-3">
+        <p class="my-auto">Hi, {{ profile.user.username | titlecase }}</p>
+      </li>
+      <div class="dropdown">
+        <img
+          class="profile-img dropdown-toggle"
+          alt="{{ profile.user.username }}"
+          src="{{ profile.image }}"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        />
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">New Post</a>
+          <a class="dropdown-item" href="#">My Posts</a>
+          <a class="dropdown-item" routerLink="profile/{{ profile.user.id }}"
+            >Profile</a
+          >
+          <a class="dropdown-item" href="#">Settings</a>
+          <p class="dropdown-item btn home-btn logout-btn" (click)="onLogout()">
+            Logout
+          </p>
+        </div>
+      </div>
     </ul>
   </div>
 </nav>

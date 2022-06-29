@@ -1,0 +1,39 @@
+<form #businessForm="ngForm" (ngSubmit)="onCreate(businessForm)">
+  <div class="form-group py-2">
+    <input
+      type="text"
+      name="name"
+      id="name"
+      #businessName="ngModel"
+      placeholder="Business name"
+      required
+      minlength="3"
+      class="form-control comment-input business-input"
+      [ngClass]="{ 'is-invalid': businessName.errors && businessName.touched ||businessForm.submitted && businessName.errors }"
+      [(ngModel)]="name"
+    />
+    <div class="invalid-feedback" [hidden]="businessName.errors?.['minlength']">
+      Must be at least 3 characters
+    </div>
+  </div>
+  <div class="form-group py-2">
+    <input
+      type="email"
+      name="email"
+      id="email"
+      #businessEmail="ngModel"
+      placeholder="Email address"
+      required
+      class="form-control comment-input business-input"
+      pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+      [ngClass]="{
+        'is-invalid': businessEmail.errors && businessEmail.touched || businessForm.submitted && businessEmail.errors
+      }"
+      [(ngModel)]="email"
+    />
+    <div class="invalid-feedback" [hidden]="businessEmail.errors?.['pattern']">
+      Please enter a valid email address
+    </div>
+  </div>
+  <button class="home-btn post-btn mt-2 py-2">Create Business</button>
+</form>

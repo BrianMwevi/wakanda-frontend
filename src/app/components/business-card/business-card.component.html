@@ -1,0 +1,18 @@
+<div class="card custom-card my-3" *ngIf="business">
+  <div class="card-title px-3 pt-3 pb-0">
+    <h5>
+      Name: <span class="custom-color">{{ business.name }}</span>
+    </h5>
+  </div>
+  <div class="card-body py-0">
+    <p>
+      Email: <span class="custom-color">{{ business.email }}</span>
+    </p>
+  </div>
+  <div class="card-footer">
+    <small
+      >Established:
+      <span class="custom-color">{{ business.established }}</span></small
+    >
+  </div>
+</div>

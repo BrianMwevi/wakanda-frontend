@@ -4,36 +4,162 @@
   </div>
   <div
     class="account-container"
-    [ngClass]="isLogin ? 'left-panel-active' : 'right-panel-active'"
+    [ngClass]="isLoginForm ? 'left-panel-active' : 'right-panel-active'"
   >
     <div class="form-container sign-up-container">
-      <form action="#">
-        <h1>Create Account</h1>
+      <form #signupForm="ngForm" (ngSubmit)="onSignup(signupForm)">
+        <h2>Create Account</h2>
         <div class="social-container">
           <a href="#" class="social"><i class="fa fa-facebook-f"></i></a>
           <a href="#" class="social"><i class="fa fa-google"></i></a>
           <a href="#" class="social"><i class="fa fa-linkedin"></i></a>
         </div>
         <span>or use your email for registration</span>
-        <input class="form-input" type="text" placeholder="Name" />
-        <input class="form-input" type="email" placeholder="Email" />
-        <input class="form-input" type="password" placeholder="Password" />
-        <button class="form-btn">Sign Up</button>
+        <div class="form-group m-0 p-0">
+          <input
+            type="text"
+            name="username"
+            #signupUsername="ngModel"
+            placeholder="Enter username"
+            required
+            minlength="3"
+            class="form-input form-control"
+            [ngClass]="{
+              'is-invalid':
+                (signupUsername.errors && signupUsername.touched) ||
+                (signupForm.submitted && !signupForm.value.username)
+            }"
+            [(ngModel)]="username"
+          />
+          <div
+            [hidden]="!signupUsername.errors?.['required']"
+            class="invalid-feedback text-danger text-left p-0 m-0"
+          >
+            <small>Username required</small>
+          </div>
+          <div
+            [hidden]="!signupUsername.errors?.['minlength']"
+            class="invalid-feedback text-danger text-left m-0 p-0"
+          >
+            <small>Must be at least 3 characters</small>
+          </div>
+        </div>
+        <div class="form-group m-0 p-0">
+          <input
+            type="email"
+            name="email"
+            #signupEmail="ngModel"
+            placeholder="Enter email address"
+            required
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+            class="form-input form-control"
+            [ngClass]="{
+              'is-invalid':
+                (signupEmail.errors && signupEmail.touched) ||
+                (signupForm.submitted && !signupForm.value.email)
+            }"
+            [(ngModel)]="email"
+          />
+          <div
+            [hidden]="!signupEmail.errors?.['required']"
+            class="invalid-feedback text-danger p-0 m-0 text-left"
+          >
+            <small class="m-0 p-0">Email required</small>
+          </div>
+          <div
+            [hidden]="!signupEmail.errors?.['pattern']"
+            class="invalid-feedback text-danger p-0 m-0 text-left"
+          >
+            <small class="m-0 p-0">Enter a valid email address</small>
+          </div>
+        </div>
+        <div class="form-group m-0 p-0">
+          <input
+            type="password"
+            name="password"
+            #signupPassword="ngModel"
+            placeholder="Enter password"
+            required
+            minlength="8"
+            class="form-input form-control"
+            [ngClass]="{
+              'is-invalid':
+                (signupPassword.errors && signupPassword.touched) ||
+                (signupForm.submitted && signupPassword.invalid)
+            }"
+            [(ngModel)]="password"
+          />
+          <div
+            [hidden]="!signupPassword.errors?.['required'] &&!isReset"
+            class="invalid-feedback text-danger p-0 m-0 text-left"
+          >
+            <small class="m-0 p-0">Password required.</small>
+          </div>
+          <div
+            [hidden]="!signupPassword.errors?.['minlength']"
+            class="invalid-feedback text-danger p-0 m-0 text-left"
+          >
+            <small class="">Must be at least 8 characters</small>
+          </div>
+        </div>
+        <button class="form-btn" type="submit">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
-      <form action="#">
-        <h1>Sign in</h1>
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+        <h2>Sign in</h2>
         <div class="social-container">
           <a routerLink="#" class="social"><i class="fa fa-facebook-f"></i></a>
           <a routerLink="#" class="social"><i class="fa fa-google"></i></a>
           <a routerLink="#" class="social"><i class="fa fa-linkedin"></i></a>
         </div>
         <span>or use your account</span>
-        <input class="form-input" type="email" placeholder="Email" />
-        <input class="form-input" type="password" placeholder="Password" />
-        <a href="#">Forgot your password?</a>
-        <button class="form-btn">Sign In</button>
+        <div class="form-group m-0 p-0">
+          <input
+            type="text"
+            name="username"
+            #loginUsername="ngModel"
+            placeholder="Enter username"
+            required
+            class="form-input form-control"
+            [ngClass]="{
+              'is-invalid':
+                (loginUsername.errors && loginUsername.touched) ||
+                (loginForm.submitted && loginUsername.invalid)
+            }"
+            [(ngModel)]="username"
+          />
+          <div
+            [hidden]="!loginUsername.errors?.['required']"
+            class="invalid-feedback text-danger"
+          >
+            <small>Username required</small>
+          </div>
+        </div>
+        <div class="form-group m-0 p-0">
+          <input
+            type="password"
+            name="password"
+            #loginPassword="ngModel"
+            placeholder="Enter password"
+            required
+            class="form-input form-control"
+            [ngClass]="{
+              'is-invalid':
+                (loginPassword.errors && loginPassword.touched) ||
+                (loginForm.submitted && loginPassword.invalid)
+            }"
+            [(ngModel)]="password"
+          />
+          <div
+            [hidden]="!loginPassword.errors?.['required']"
+            class="invalid-feedback text-danger"
+          >
+            <small>Password required.</small>
+          </div>
+        </div>
+        <button class="form-btn mt-3" type="submit">Sign In</button>
+        <a routerLink="#" class="nav-link">Forgot your password?</a>
       </form>
     </div>
     <div class="overlay-container">
@@ -41,14 +167,20 @@
         <div class="overlay-panel overlay-left">
           <h1>Welcome Back!</h1>
           <p>To keep connected with us please login with your personal info</p>
-          <button class="form-btn ghost" (click)="isLogin = true">
+          <button
+            class="form-btn ghost"
+            (click)="isLoginForm = !isLoginForm; signupForm.onReset()"
+          >
             Sign In
           </button>
         </div>
         <div class="overlay-panel overlay-right">
-          <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
-          <button class="form-btn ghost" (click)="isLogin = false">
+          <h1>Welcome To Wakanda!</h1>
+          <p>Create an account to join the community</p>
+          <button
+            class="form-btn ghost"
+            (click)="isLoginForm = false; loginForm.onReset()"
+          >
             Sign Up
           </button>
         </div>

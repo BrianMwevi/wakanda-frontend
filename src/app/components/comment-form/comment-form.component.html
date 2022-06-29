@@ -1,0 +1,15 @@
+<form (ngSubmit)="onComment()">
+  <input
+    type="text"
+    class="comment-input form-control"
+    name="comment"
+    placeholder="Add comment"
+    autocomplete="off"
+    [ngClass]="{ 'is-invalid': comment.length < 2 && comment }"
+    [(ngModel)]="comment"
+  />
+
+  <div [hidden]="!commentError" class="invalid-feedback text-danger">
+    <small>Comment should be at least 2 characters</small>
+  </div>
+</form>

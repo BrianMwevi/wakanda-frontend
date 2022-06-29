@@ -1,0 +1,41 @@
+<div class="card my-3 custom-card" *ngIf="post">
+  <div class="card-header">
+    <div class="d-flex">
+      <app-profile-card [user]="post.user"></app-profile-card>
+      <p class="ml-auto my-auto">
+        <strong><i class="fa fa-ellipsis-h" aria-hidden="true"></i></strong>
+      </p>
+    </div>
+  </div>
+  <div class="card-body p-0 m-0">
+    <p class="pl-3 pt-3">{{ post.post }}</p>
+    <img
+      *ngIf="post.image"
+      src="{{ post.image }}"
+      alt="{{ post.user.username }}"
+      class="img-fluid"
+    />
+    <div class="d-flex">
+      <i class="post-icons fa mx-3 mt-3 fa-comment-o" aria-hidden="true"></i>
+      <i class="post-icons fa mx-3 mt-3 fa-heart" aria-hidden="true"></i>
+      <!-- <i class="post-icons fa mx-3 mt-3 fa-heart-o" aria-hidden="true"></i> -->
+      <i class="post-icons fa mx-3 mt-3 fa-share-alt" aria-hidden="true"></i>
+      <i class="post-icons fa ml-auto mr-3 mt-3 fa-bookmark-o" aria-hidden="true"></i>
+      <!-- <i class="post-icons fa mx-3 mt-3 fa-bookmark-o float-right" aria-hidden="true"></i> -->
+    </div>
+  </div>
+  <div class="ml-4 mt-3">
+    <div *ngFor="let comment of post.comments" class="d-flex my-3">
+      <app-profile-card [user]="comment.user" [small]="true"></app-profile-card>
+      <p class="py-1 px-2 my-auto ml-2">
+        <small>{{ comment.comment }}</small>
+      </p>
+    </div>
+    <div class="d-flex pt-1 pb-3">
+      <app-profile-card [user]="user" [small]="true"></app-profile-card>
+      <p class="my-auto w-100 ml-1 mr-3">
+        <app-comment-form (commentText)="addComment($event)"></app-comment-form>
+      </p>
+    </div>
+  </div>
+</div>
