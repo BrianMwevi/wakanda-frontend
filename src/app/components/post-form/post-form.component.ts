@@ -33,10 +33,12 @@ export class PostFormComponent implements OnInit {
       if (this.selectedImage) {
         fd.append('image', this.selectedImage, this.selectedImage.name);
       }
+
       fd.append('post', this.post);
       this.authService.profile.subscribe((profile) =>
         fd.append('neighborhood', profile.neighborhood)
       );
+      
       this.communityService.createPost(fd).subscribe((post) => {
         (this.post = ''), (this.selectedImage = undefined);
         this.newPost.emit(post);

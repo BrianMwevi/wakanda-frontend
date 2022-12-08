@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 
-import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, map, Observable, of } from 'rxjs';
 import { User } from '../models/User';
 import { Profile } from '../models/Profile';
 // import { ProjectsService } from './projects.service';
@@ -21,26 +21,25 @@ export class AuthService {
   );
 
   public profile = this.profileSource.asObservable();
-  private url = `${environment.DEV_URL}`;
+  private url = `${environment.BASE_URL}`;
 
   constructor(private http: HttpClient, private route: Router) {
     this.profileSource.next(this.getLocalStorage('profile'));
   }
-  signup(user: User) {
-    return this.http.post(`${this.url}/users/`, user);
+  async signup(user: User) {
+    const value = this.http.post(`${this.url}/users/`, user);
+    return await lastValueFrom(value);
   }
 
-  login(user: User) {
-    return this.http.post(`${this.url}/login/`, user).pipe(
-      map((user: any) => {
-        this.setLocalStorage('token', user.token);
-        this.setLocalStorage('tokenExp', user.expiry);
-        this.getProfile().subscribe();
-        return this.profile.subscribe((user) => user);
-      })
-    );
+  async login(credentials: any) {
+    const value = this.http.post(`${this.url}/login/`, credentials);
+    return await lastValueFrom(value).then((resp: any) => {
+      this.setLocalStorage('token', resp.token);
+      this.setLocalStorage('tokenExp', resp.expiry);
+      return resp;
+    });
   }
-  
+
   getProfile(): Observable<Profile> {
     return this.http.get<Profile>(`${this.url}/profile`).pipe(
       map((profile: any) => {

@@ -87,7 +87,7 @@
           </div>
         </div>
         <div class="" *ngIf="selected == 'Businesses'">
-          <div *ngIf="profile.neighborhood">
+          <div *ngIf="profile?.neighborhood">
             <h3 class="custom-color mb-4">Create A Business</h3>
             <!-- Passing to parent i.e app-profile -->
             <app-business-form
@@ -121,14 +121,14 @@
                   }}</strong>
                 </p>
                 <button
-                  *ngIf="neighborhood?.id != profile.neighborhood"
+                  *ngIf="neighborhood?.id != profile?.neighborhood"
                   (click)="onJoin(neighborhood.id)"
                   class="home-btn post-btn"
                 >
                   Join
                 </button>
                 <button
-                  *ngIf="neighborhood.id == profile.neighborhood"
+                  *ngIf="neighborhood?.id == profile?.neighborhood"
                   class="post-btn"
                   disabled
                 >

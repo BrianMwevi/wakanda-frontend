@@ -72,7 +72,6 @@ export class ProfileComponent implements OnInit {
 
   getBusinesses(): void {
     this.communityService.getBusinesses().subscribe((businesses) => {
-      console.log(businesses);
       this.businesses = businesses;
     });
   }

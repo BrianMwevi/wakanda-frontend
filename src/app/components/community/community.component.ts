@@ -20,7 +20,7 @@ export class CommunityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getPosts()
+    this.getPosts();
     // this.authService.getProfile().subscribe();
     this.authService.getProfile().subscribe((profile) => {
       this.profile = profile;
